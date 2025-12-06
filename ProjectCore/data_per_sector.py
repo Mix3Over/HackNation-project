@@ -1,5 +1,7 @@
-import pandas as pd
 import re
+
+import pandas as pd
+
 
 def createDataPerSector(wskazniki):
     pd.set_option('display.max_rows', None)
@@ -32,6 +34,6 @@ def createDataPerSector(wskazniki):
 
     print(wynik)
 
-    wynik.to_csv("Dane/dane_wedlug_wskaznikow.csv", index=False, encoding="utf-8")
+    wynik.to_csv("Dane/dane_wedlug_CAGR.csv", index=False, encoding="utf-8")
 
 createDataPerSector(["EN Liczba jednostek gospodarczych", "NP Wynik finansowy netto (zysk netto)"])
