@@ -1,0 +1,27 @@
+@baseUrl = https://dane.biznes.gov.pl/api/ceidg/v3
+@authToken = eyJraWQiOiJjZWlkZyIsImFsZyI6IkhTNTEyIn0.eyJnaXZlbl9uYW1lIjoiTWF0ZXVzeiIsInBlc2VsIjoiOTgwODEwMDUzNzUiLCJpYXQiOjE3NjUwMTg4NDAsImZhbWlseV9uYW1lIjoiS2lmbmVyIiwiY2xpZW50X2lkIjoiVVNFUi05ODA4MTAwNTM3NS1NQVRFVVNaLUtJRk5FUiJ9.3JOkfnf_R2eBb__YxpzYw1_2De-TOwcIdWrKh7nMHDYJ8SNT3d_B7E2igEL2B3JOC8VD0TdHvuHP1xs5o3wtZQ
+
+GET {{baseUrl}}/firmy?dataod=2025-01-01&datado=2025-12-31&limit=25&wojewodztwo=pomorskie HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{baseUrl}}/firma/F486FCF6-5089-45D7-A6AD-F92B1314BEF0 HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{baseUrl}}/firmy?imie=mateusz&nazwisko=kifner HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{baseUrl}}/zmiana?dataod=2025-04-08&datado=2025-04-08&limit=100&wojewodztwo=pomorskie HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
+
+GET {{baseUrl}}/raporty?dataod=2025-11-04&datado=2025-11-05 HTTP/1.1
+Authorization: Bearer {{authToken}}
+
+###
