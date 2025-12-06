@@ -1,5 +1,4 @@
 import re
-
 import pandas as pd
 
 
@@ -20,20 +19,14 @@ def createDataPerSector(wskazniki):
     df["nazwa PKD"] = df["nazwa PKD"].str.strip()
     df["numer PKD"] = df["numer PKD"].str.strip()
 
-    wybrane_wskazniki = wskazniki# USTALAMY WSKAZNIKI!!
+    wybrane_wskazniki = wskazniki
 
     filtrowane_dane = df[df["wskaźnik"].isin(wybrane_wskazniki)]
+
+    #filtrowane_dane = filtrowane_dane[filtrowane_dane["numer PKD"].str.upper() != "OG"]
 
     kolumny_lata = [str(rok) for rok in range(2005, 2025)]
     kolumny_do_wyswietlenia = ["numer PKD", "nazwa PKD", "wskaźnik"] + kolumny_lata
     wynik = filtrowane_dane[kolumny_do_wyswietlenia]
 
-    wynik = wynik[wynik["numer PKD"].str.contains(r"[A-Za-z_ĄąĆćĘęŁłŃńÓóŚśŹźŻż]")]
-
-    wynik = wynik.sort_values(by="numer PKD")
-
-    print(wynik)
-
     wynik.to_csv("Dane/dane_wedlug_CAGR.csv", index=False, encoding="utf-8")
-
-createDataPerSector(["EN Liczba jednostek gospodarczych", "NP Wynik finansowy netto (zysk netto)"])

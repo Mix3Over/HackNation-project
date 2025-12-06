@@ -20,16 +20,14 @@ def bigCagr():
 
     plt.figure(figsize=(18, 8))
 
-    for _, row in df.iterrows():
-        plt.plot(kolumny_lata, row[kolumny_lata], marker="o", label=row["numer PKD"])
+    # for _, row in df.iterrows():
+    #     plt.plot(kolumny_lata, row[kolumny_lata], marker="o", label=row["numer PKD"])
 
-    plt.title("NP Wynik finansowy netto")
-    plt.xlabel("Rok")
-    plt.ylabel("Wynik finansowy netto")
-    plt.xticks(rotation=45)
-    plt.legend(title="Numer PKD", bbox_to_anchor=(1.05, 1), loc="upper left")
-    plt.grid(True)
-    plt.tight_layout()
-    plt.show()
-
-bigCagr()
+    # plt.title("NP Wynik finansowy netto")
+    # plt.xlabel("Rok")
+    # plt.ylabel("Wynik finansowy netto")
+    # plt.xticks(rotation=45)
+    # plt.legend(title="Numer PKD", bbox_to_anchor=(1.05, 1), loc="upper left")
+    # plt.grid(True)
+    # plt.tight_layout()
+    # plt.show()
