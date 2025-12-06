@@ -2,11 +2,11 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
 
-from data_per_sector import createDataPerSector
+from BaseCode.Data_per_sector import CreateDataPerSector
 
 
 def bigCagr():
-    createDataPerSector(["GS Przychody ogółem "])
+    CreateDataPerSector(["GS Przychody ogółem "])
 
     df = pd.read_csv("Dane/dane_wedlug_wskaznikow.csv", encoding="utf-8")
 

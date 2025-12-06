@@ -1,7 +1,7 @@
 import matplotlib.pyplot as plt
 import pandas as pd
 
-df = pd.read_csv("Dane/dane_wedlug_wskaznikow.csv", encoding="utf-8")
+df = pd.read_csv("Data/Data_per_sector.csv", encoding="utf-8")
 
 kolumny_lata = [str(rok) for rok in range(2005, 2025)]
 

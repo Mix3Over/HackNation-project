@@ -1,10 +1,10 @@
-from data_per_sector import createDataPerSector
-from CAGR import bigCagr
-from pochodna import pochodna
+from BaseCode.Data_per_sector import CreateDataPerSector
+from BaseCharts.CAGR import bigCagr
+from BaseCharts.Derivative import derivative
 
-def createAndUploadData():
-    createDataPerSector([])
+def CreateAndUploadData():
+    #CreateDataPerSector(["EN Liczba jednostek gospodarczych"])
     #bigCagr()
-    pochodna()
+    derivative()
 
-createAndUploadData()
+CreateAndUploadData()
