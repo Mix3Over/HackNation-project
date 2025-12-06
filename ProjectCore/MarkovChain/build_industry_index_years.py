@@ -17,11 +17,10 @@ import os
 import re
 import warnings
 from copy import deepcopy
-from typing import Dict, List, Tuple, Optional
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 import pandas as pd
-
 
 # -------------------------------------------------
 # USTAWIENIA GLOBALNE – MOŻESZ ZMIENIAĆ TUTAJ

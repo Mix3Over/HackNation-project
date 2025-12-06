@@ -1,5 +1,7 @@
 import re
+
 import pandas as pd
+
 
 def CreateDataPerSector(wskazniki):
     pd.set_option('display.max_rows', None)
