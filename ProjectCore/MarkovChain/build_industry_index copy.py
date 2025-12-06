@@ -41,10 +41,10 @@ import pandas as pd
 
 # -------------------------------------------------
 # USTAWIENIA GLOBALNE – TUTAJ MOŻESZ ZMIENIAĆ
-# -------------------------------------------------
+# -------------------------------------W------------
 
-DATA_DIR = "data"
-OUTPUT_DIR = "output"
+DATA_DIR = "Data"
+OUTPUT_DIR = "Data"
 
 FILE_WSK_FIN = os.path.join(DATA_DIR, "wsk_fin.csv")
 FILE_KRZ_PKD = os.path.join(DATA_DIR, "krz_pkd.csv")
@@ -590,9 +590,9 @@ def main():
     fin_all = load_financial_pkd(FILE_WSK_FIN, sep=";", encoding="utf-8", skiprows=0)
 
     # 2) krz_pkd jako kontrola jakości
-    if os.path.exists(FILE_KRZ_PKD):
+    if os.path.exists("krz_pkd.csv"):
         try:
-            fin_krz = load_financial_pkd(FILE_KRZ_PKD, sep=",", encoding="ISO-8859-1", skiprows=1)
+            fin_krz = load_financial_pkd("krz_pkd.csv", sep=",", encoding="ISO-8859-1", skiprows=1)
             print("[INFO] Porównanie wsk_fin.csv i krz_pkd.csv (numerycznie):")
             compare_financial_sets(fin_all, fin_krz)
         except Exception as e:
@@ -606,7 +606,7 @@ def main():
     index_df = attach_pkd2025(index_df, FILE_MAP_PKD)
 
     # 4) zapis
-    output_path = os.path.join(OUTPUT_DIR, "index_branż.csv")
+    output_path = os.path.join("Data", "index_branż.csv")
 
     columns_out = [
         "pkd_section",
@@ -653,5 +653,5 @@ def main():
     print(f"[INFO] Gotowe! Indeks branż zapisany do: {output_path}")
 
 
-if __name__ == "__main__":
-    main()
+# if __name__ == "__main__":
+#     main()

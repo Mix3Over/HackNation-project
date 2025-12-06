@@ -17,17 +17,18 @@ import os
 import re
 import warnings
 from copy import deepcopy
-from typing import Dict, List, Optional, Tuple
+from typing import Dict, List, Tuple, Optional
 
 import numpy as np
 import pandas as pd
+
 
 # -------------------------------------------------
 # USTAWIENIA GLOBALNE – MOŻESZ ZMIENIAĆ TUTAJ
 # -------------------------------------------------
 
-DATA_DIR = "data"
-OUTPUT_DIR = "output"
+DATA_DIR = "Data"
+OUTPUT_DIR = "Data"
 
 FILE_WSK_FIN = os.path.join(DATA_DIR, "wsk_fin.csv")
 FILE_KRZ_PKD = os.path.join(DATA_DIR, "krz_pkd.csv")
@@ -35,10 +36,9 @@ FILE_MAP_PKD = os.path.join(DATA_DIR, "mapowanie_pkd.xlsx")
 
 # Lata, dla których liczymy indeksy (muszą istnieć w danych)
 # Domyślnie tylko 2024 (jak w poprzedniej wersji)
-YEARS_TO_CALCULATE = [2018]
+# YEARS_TO_CALCULATE = [2018]
 
 # Długość okna do CAGR (np. 3 lata -> year vs year-3)
-CAGR_WINDOW_YEARS = 3
 
 # METODA NORMALIZACJI:
 #   "minmax" -> 0–100 (jak wcześniej)
@@ -89,7 +89,7 @@ DEFAULT_WEIGHTS: Dict[str, Dict[str, float]] = {
 # CUSTOM_WEIGHTS = {
 #     "current": {"size_index": 0.1, "growth_index": 0.4, "profit_index": 0.25, "risk_index": 0.25}
 # }
-CUSTOM_WEIGHTS: Optional[Dict[str, Dict[str, float]]] = None
+#CUSTOM_WEIGHTS: Optional[Dict[str, Dict[str, float]]] = None
 
 
 # -------------------------------------------------
@@ -531,7 +531,7 @@ def attach_pkd2025(df: pd.DataFrame, mapping_path: str) -> pd.DataFrame:
 # MAIN
 # -------------------------------------------------
 
-def main():
+def mainIndustryIndex(YEARS_TO_CALCULATE, CAGR_WINDOW_YEARS, CUSTOM_WEIGHTS: Optional[Dict[str, Dict[str, float]]] = None):
     warnings.filterwarnings("ignore", category=RuntimeWarning)
 
     ensure_output_dir(OUTPUT_DIR)
@@ -628,4 +628,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    mainIndustryIndex()
