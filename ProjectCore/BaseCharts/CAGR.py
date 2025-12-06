@@ -6,7 +6,9 @@ from BaseCode.Data_per_sector import CreateDataPerSector
 
 
 def bigCagr():
-    CreateDataPerSector(["NP Wynik finansowy netto (zysk netto)", "GS (I) Przychody netto ze sprzedaży i zrównane z nimi", "IO Wartość nakładów inwestycyjnych"])
+    CreateDataPerSector(["NP Wynik finansowy netto (zysk netto)",
+                         "GS (I) Przychody netto ze sprzedaży i zrównane z nimi",
+                         "IO Wartość nakładów inwestycyjnych"])
 
     def calculate_cagr(start_val, end_val, periods):
         # Zabezpieczenie przed zerami i wartościami ujemnymi (wymagane dla CAGR)
@@ -16,7 +18,7 @@ def bigCagr():
 
     # 2. Wczytanie danych
     try:
-        df = pd.read_csv("Data/dane_wedlug_wskaznikow.csv", encoding="utf-8")
+        df = pd.read_csv("..\Data\dane_wedlug_wskaznikow.csv", encoding="utf-8")
     except FileNotFoundError:
         print("Nie znaleziono pliku CSV.")
         return
@@ -135,7 +137,7 @@ def bigCagr():
     plt.subplots_adjust(right=0.60, left=0.08, top=0.9, bottom=0.1)
 
     # Skalowanie bąbelków
-    sizes = df_macierz["Inwestycje"] * 5000
+    sizes = df_macierz["Inwestycje"] * 35000
     sizes = [max(80, s) for s in sizes]  # Minimalna wielkość kropki to 10
 
     # Rysujemy WSZYSTKO jedną komendą (scatter plot), a nie w pętli plot()
@@ -143,7 +145,7 @@ def bigCagr():
         df_macierz["Wzrost_Przychodow"],
         df_macierz["Rentownosc"],
         s=sizes,
-        alpha=0.8,
+        alpha=0.6,
         c=df_macierz["Rentownosc"],
         cmap="RdYlGn",
         edgecolors='black',
