@@ -1,10 +1,10 @@
+from typing import Dict
+
 from BaseCharts.CAGR import bigCagr
 from BaseCharts.Derivative import derivative
+from BaseCharts.Prediction import add_predictions
 from BaseCode.Data_per_sector import CreateDataPerSector
 from MarkovChain.build_industry_index_years import mainIndustryIndex
-from BaseCharts.Prediction import add_predictions
-
-from typing import Dict
 
 DEFAULT_WEIGHTS: Dict[str, Dict[str, float]] = {
     "size": {                 # filar: skala

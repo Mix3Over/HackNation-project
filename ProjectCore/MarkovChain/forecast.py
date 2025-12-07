@@ -1,11 +1,11 @@
-import numpy as np
-import pandas as pd
 from typing import Tuple
 
+import numpy as np
+import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
-from tensorflow.keras.models import Sequential
-from tensorflow.keras.layers import LSTM, Dense
 from tensorflow.keras.callbacks import EarlyStopping
+from tensorflow.keras.layers import LSTM, Dense
+from tensorflow.keras.models import Sequential
 
 
 def _create_supervised_series(series_scaled: np.ndarray,

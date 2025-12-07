@@ -1,3 +1,0 @@
-GET https://bdl.stat.gov.pl/api/v1/data/by-variable/3643?format=xml&year=2000&year=2010 HTTP/1.1
-Host: hostname
-X-ClientId: 2c297299-79b0-4f8f-a402-08de348d05e1

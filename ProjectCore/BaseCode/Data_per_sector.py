@@ -1,5 +1,3 @@
-import re
-
 import pandas as pd
 
 
@@ -9,9 +7,9 @@ def CreateDataPerSector(wskazniki):
     pd.set_option('display.width', None)
     pd.set_option('display.max_colwidth', None)
 
-    input_file = "Data/wsk_fin.xlsx - dane.csv"
+    input_file = "..\Data\wsk_fin.xlsx - dane.csv"
 
-    output_file = "Data/dane_wedlug_wskaznikow.csv"
+    output_file = "..\Data\dane_wedlug_wskaznikow.csv"
 
     df = pd.read_csv(
         input_file,
