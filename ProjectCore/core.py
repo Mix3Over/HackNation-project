@@ -1,10 +1,14 @@
-from typing import Dict
-
 from BaseCharts.CAGR import bigCagr
 from BaseCharts.Derivative import derivative
-from BaseCharts.Prediction import add_predictions
 from BaseCode.Data_per_sector import CreateDataPerSector
 from MarkovChain.build_industry_index_years import mainIndustryIndex
+from BaseCharts.Prediction import add_predictions
+
+from MarkovChain.MarkovChain import mainMarkovChain
+
+from typing import Dict
+
+import pandas as pd
 
 DEFAULT_WEIGHTS: Dict[str, Dict[str, float]] = {
     "size": {                 # filar: skala
@@ -45,6 +49,13 @@ DEFAULT_WEIGHTS: Dict[str, Dict[str, float]] = {
     },
 }
 
+def CreateMainIndexDataPredictions(main_index_map):
+    df_table = pd.DataFrame.from_dict(main_index_map, orient='index')
+    df_table = df_table.sort_index()
+    df_table = df_table.reindex(sorted(df_table.columns), axis=1)
+    
+    df_table.to_csv("Data/main_index_predictions.csv", sep=";")
+
 
 def CreateAndUploadData():
     #CreateDataPerSector(["EN Liczba jednostek gospodarczych"])
@@ -52,8 +63,11 @@ def CreateAndUploadData():
     #derivative()
     mainIndustryIndex([2018, 2019, 2020, 2021, 2022, 2023, 2024], 3)
 
-    add_predictions("Data/index_branż.csv", "future_index")
-    add_predictions("Data/index_branż.csv", "main_index")
+    main_index_map = add_predictions("Data/index_branż.csv", "future_index")
+    CreateMainIndexDataPredictions(main_index_map)
+
+
+    
 
 
 CreateAndUploadData()

@@ -61,16 +61,21 @@ def add_predictions(file_path, indexName):
 
     plt.figure(figsize=(12, 7))
 
-    for sec in sections:
+    main_index_map = {}
+    for sec in df_full["pkd_section"].unique():
         sec_data = df_full[df_full["pkd_section"] == sec]
-        plt.plot(sec_data["year"], sec_data[indexName], marker="o", label=f"{sec}")
+        main_index_map[sec] = dict(zip(sec_data["year"], sec_data[indexName]))
 
-    plt.title("Pierwsze 20 sekcji PKD – Main Index z predykcjami (+3 lata)")
-    plt.xlabel("Year")
-    plt.ylabel("Main Index")
-    plt.grid(True)
-    plt.legend(title="PKD Section")
-    plt.tight_layout()
-    plt.show()
+    # for sec in sections:
+    #     sec_data = df_full[df_full["pkd_section"] == sec]
+    #     plt.plot(sec_data["year"], sec_data[indexName], marker="o", label=f"{sec}")
 
-    return df_full
+    # plt.title("Pierwsze 20 sekcji PKD – Main Index z predykcjami (+3 lata)")
+    # plt.xlabel("Year")
+    # plt.ylabel("Main Index")
+    # plt.grid(True)
+    # plt.legend(title="PKD Section")
+    # plt.tight_layout()
+    # plt.show()
+
+    return main_index_map

@@ -100,7 +100,7 @@ def stationary_eigenvector_for_13x13(Q):
 
 # --- 3. Główna część analizy --------------------------------------------------
 
-if __name__ == "__main__":
+def mainMarkovChain():
     Q, R, mask = decompose_absorbing(P, absorbing_index)
 
     # 3.1. Macierz fundamentalna i oczekiwany czas życia
