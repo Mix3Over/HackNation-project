@@ -165,7 +165,7 @@ if __name__ == "__main__":
     import pandas as pd
 
     # 1. Wczytanie danych
-    df = pd.read_csv("index_branz.csv", sep=",")  # albo sep=";" jeśli masz średniki
+    df = pd.read_csv("Data/index_branż.csv", sep=";")
 
     # 2. Forecast np. dla hurtu (46) po 'main_index' na 5 lat do przodu
     model, result_df, history = forecast_index_lstm(
