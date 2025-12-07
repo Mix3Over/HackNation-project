@@ -217,13 +217,16 @@ def load_financial_pkd(path: str, sep: str = ";", encoding: str = "utf-8", skipr
     """
     Wczytuje plik finansowy wg PKD i zwraca ramkę w formacie „wide”:
         pkd_section, year, EN, PEN, GS_I, NP, IO, LTC, STC, LTL, STL, pkd_name
+    Zachowuje wiersze SEK_… oraz standardowe PKD numeryczne.
     """
     print(f"[INFO] Wczytywanie danych finansowych PKD z {path} ...")
     df = pd.read_csv(path, sep=sep, encoding=encoding, skiprows=skiprows)
 
+    # kolumny z latami
     year_cols = [c for c in df.columns if re.fullmatch(r"\d{4}", str(c))]
     id_vars = [c for c in df.columns if c not in year_cols]
 
+    # przekształcenie "wide" -> "long"
     df_long = df.melt(
         id_vars=id_vars,
         value_vars=year_cols,
@@ -237,33 +240,48 @@ def load_financial_pkd(path: str, sep: str = ";", encoding: str = "utf-8", skipr
         if col not in df_long.columns:
             raise ValueError(f"Brak kolumny '{col}' w pliku {path}")
 
+    # zachowujemy pełny kod PKD dla nazwy
+    df_long["pkd_full"] = df_long["PKD"]
+
+    # poprawiona funkcja wyciągania sekcji PKD
+    def extract_pkd_section(code: str):
+        """Zwraca kod sekcji PKD – zachowuje SEK_… lub numeryczne 2-cyfrowe PKD."""
+        if not isinstance(code, str):
+            return None
+        code = code.strip()
+        if code.startswith("SEK_"):
+            return code
+        m = re.match(r"(\d{2})", code)
+        return m.group(1) if m else None
+
     df_long["indicator_code"] = df_long["WSKAZNIK"].apply(extract_indicator_code)
     df_long["pkd_section"] = df_long["PKD"].apply(extract_pkd_section)
+
+    # zachowujemy tylko wiersze z pkd_section
     df_long = df_long[df_long["pkd_section"].notna()].copy()
 
-    df_long["NAZWA_PKD"] = df_long["NAZWA_PKD"].astype(str)
-    pkd_names = (
-        df_long.groupby("pkd_section")["NAZWA_PKD"]
-        .first()
-        .reset_index()
-        .rename(columns={"NAZWA_PKD": "pkd_name"})
-    )
+    # nazwa branży powiązana z pełnym PKD
+    pkd_names = df_long[["pkd_section", "pkd_full", "NAZWA_PKD"]].drop_duplicates()
+    pkd_names = pkd_names.rename(columns={"NAZWA_PKD": "pkd_name"})
 
     indicators_interest = ["EN", "PEN", "GS_I", "NP", "IO", "LTC", "STC", "LTL", "STL"]
     df_long = df_long[df_long["indicator_code"].isin(indicators_interest)].copy()
 
+    # agregacja po pkd_section / year / indicator
     agg = (
         df_long.groupby(["pkd_section", "year", "indicator_code"])["value"]
         .sum()
         .reset_index()
     )
 
+    # pivot do formatu wide
     wide = agg.pivot_table(
         index=["pkd_section", "year"],
         columns="indicator_code",
         values="value",
     ).reset_index()
 
+    # merge z nazwami
     wide = wide.merge(pkd_names, on="pkd_section", how="left")
 
     return wide
@@ -575,6 +593,8 @@ def mainIndustryIndex(YEARS_TO_CALCULATE, CAGR_WINDOW_YEARS, CUSTOM_WEIGHTS: Opt
 
     index_df = pd.concat(all_years_results, ignore_index=True)
     index_df = attach_pkd2025(index_df, FILE_MAP_PKD)
+
+    index_df = index_df[index_df["pkd_section"].str.startswith("SEK_")].copy()
 
     # 4) zapis
     output_path = os.path.join(OUTPUT_DIR, "index_branż.csv")

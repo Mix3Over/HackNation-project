@@ -1,22 +1,21 @@
 import pandas as pd
 
-# Mapowanie SEK_x na branże
+# Nowe mapowanie SEK_x na branże
 SEK_TO_SECTOR = {
     "SEK_A": "Rolnictwo",
     "SEK_B": "Górnictwo i kopalnictwo",
     "SEK_C": "Przetwórstwo przemysłowe",
-    "SEK_D": "Energia_gaz_woda",
+    "SEK_D": "Wytwarzanie i zaopatrywanie w energię el., gaz, wodę",
     "SEK_E": "Budownictwo",
     "SEK_F": "Handel",
     "SEK_G": "Transport",
     "SEK_H": "Pośrednictwo finansowe",
-    "SEK_I": "Obsługa nieruchomości firm",
+    "SEK_I": "Obsługa nieruchomości i firm",
     "SEK_J": "Edukacja",
-    "SEK_K": "Ochrona zdrowia i pomoc społeczna",
-    "SEK_L": "Kultura rekreacja",
-    "SEK_M": "Nowe działalności",
+    "SEK_K": "Ochrona zdrowia",
+    "SEK_L": "Pozostała działalność usługowa",
+    "SEK_M": "Hotele i restauracje",
     "SEK_N": "Zakończyły działalność",
-    # SEK_O, SEK_T, SEK_U są puste
 }
 
 def read_and_aggregate(file_path: str) -> pd.DataFrame:
@@ -39,6 +38,29 @@ def read_and_aggregate(file_path: str) -> pd.DataFrame:
 
     # Grupowanie po branżach i sumowanie
     sector_df = df.groupby("Sector", as_index=False)[years].sum()
+
+    # Zaokrąglenie do 2 miejsc po przecinku
+    sector_df[years] = sector_df[years].round(2)
+
+    # Sortowanie według listy states
+    states = [
+        "Rolnictwo",
+        "Górnictwo i kopalnictwo",
+        "Przetwórstwo przemysłowe",
+        "Wytwarzanie i zaopatrywanie w energię el., gaz, wodę",
+        "Budownictwo",
+        "Handel",
+        "Transport",
+        "Hotele i restauracje",
+        "Pośrednictwo finansowe",
+        "Obsługa nieruchomości i firm",
+        "Edukacja",
+        "Ochrona zdrowia",
+        "Pozostała działalność usługowa",
+        "Zakończyły działalność",
+    ]
+    sector_df["Sector"] = pd.Categorical(sector_df["Sector"], categories=states, ordered=True)
+    sector_df = sector_df.sort_values("Sector").reset_index(drop=True)
 
     return sector_df
 
