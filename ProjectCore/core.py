@@ -66,7 +66,7 @@ def CreateAndUploadData():
     main_index_map = add_predictions("Data/index_branż.csv", "future_index")
     CreateMainIndexDataPredictions(main_index_map)
 
-
+    mainMarkovChain()
     
 
 
