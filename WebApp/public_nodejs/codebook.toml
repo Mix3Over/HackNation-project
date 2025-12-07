@@ -1,0 +1,17 @@
+dictionaries = [
+    "en_us",
+    "pl_pl",
+]
+words = [
+    "nextauth",
+    "openssl",
+    "orpc",
+    "tanstack",
+    "vercel",
+    "zod",
+    "vitest",
+    "postcss",
+    "superjson"
+    "zod",
+    "bluevoid"
+]
