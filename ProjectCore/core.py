@@ -61,7 +61,7 @@ def CreateAndUploadData():
     #CreateDataPerSector(["EN Liczba jednostek gospodarczych"])
     #bigCagr()
     #derivative()
-    mainIndustryIndex([2018, 2019, 2020, 2021, 2022, 2023, 2024], 3)
+    mainIndustryIndex([2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024], 3)
 
     main_index_map = add_predictions("Data/index_branż.csv", "future_index")
     CreateMainIndexDataPredictions(main_index_map)
